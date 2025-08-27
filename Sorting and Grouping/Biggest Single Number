@@ -72,6 +72,19 @@ Explanation: There are no single numbers in the input table so we return null.
 
 Method 1:
 
+with singleNums as (SELECT num, COUNT(num) as countNum
+FROM MyNumbers
+GROUP BY num
+HAVING COUNT(num) = 1
+)
+
+SELECT Max(num) as num
+FROM singleNums;
+
+--------------
+
+Method 2:
+
 SELECT 
     COALESCE(
         (
@@ -85,7 +98,7 @@ SELECT
 
 ---------------------------------------------------------
 
-Method 2:
+Method 3:
 
 SELECT MAX(num) AS num
 FROM(
