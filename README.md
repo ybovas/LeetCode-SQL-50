@@ -6,6 +6,7 @@ The SQL 50 on LeetCode provided an extensive collection of SQL problems covering
 - Selects
 - <a href=https://github.com/ybovas/SQL/tree/main/SELECT>Selects</a>
 - Basic Joins
+- <a href=https://github.com/ybovas/SQL/tree/main/Basic%20Joins>Basic Joins</a>
 - Basic Aggregate Functions
 - Sorting and grouping
 - Advanced Select and joins
