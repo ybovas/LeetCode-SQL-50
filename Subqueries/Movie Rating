@@ -94,6 +94,10 @@ Frozen 2 and Joker have a rating average of 3.5 in February but Frozen 2 is smal
 ------------------------------------------------------------------------------------------------------
 
  ## Solution ##
+
+Method 1:
+
+
 select *
 from 
 (
@@ -121,6 +125,33 @@ from
 ) N2
 
 
+------------------------------------------------------------------------------------------------
+
+Method :2
+
+With T1 as (
+Select top 1 B.name, count(1) ranking
+from
+MovieRating A left join Users B on A.user_id = B.user_id
+left join Movies C on A.movie_id = C.movie_id 
+group by B.name
+order by ranking desc, B.name asc
+),
+
+T2 as (
+
+Select top 1 C.title as results, round(avg(A.rating*1.0),2) avg_rating
+from
+MovieRating A left join Users B on A.user_id = B.user_id
+left join Movies C on A.movie_id = C.movie_id
+where A.created_at between '2020-02-01' and '2020-02-28'
+group by C.title
+order by avg_rating desc, C.title
+)
+
+Select Name as results from T1
+union all
+Select results from T2
 
 
 ------------------------------------------------------------------------------------------------------
