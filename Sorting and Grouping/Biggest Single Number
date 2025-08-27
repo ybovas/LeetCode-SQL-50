@@ -70,6 +70,8 @@ Explanation: There are no single numbers in the input table so we return null.
 
  ## Solution ##
 
+Method 1:
+
 SELECT 
     COALESCE(
         (
@@ -81,7 +83,17 @@ SELECT
         ), NULL
     ) AS num;
 
+---------------------------------------------------------
 
+Method 2:
+
+SELECT MAX(num) AS num
+FROM(
+SELECT num
+FROM MyNumbers
+GROUP BY num
+HAVING COUNT(num)=1
+) AS un;
 
 
 ---------------------------------------------------------------------------------------
