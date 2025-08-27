@@ -108,6 +108,8 @@ John attended the Math exam 1 time, the Physics exam 1 time, and the Programming
 
  ## Solution ##
 
+Method 1:
+
 SELECT S.student_id,S.student_name,SU.subject_name,COUNT(E.student_id) attended_exams
 FROM Students S
 CROSS JOIN Subjects SU
@@ -118,8 +120,23 @@ GROUP BY S.student_id, S.student_name, SU.subject_name
 ORDER BY S.student_id, S.student_name, SU.subject_name
 ;
 
+---------------------------------------------------------------------------------------------------
+Method 2:
+
+with CTE_A
+AS
+(
+    select S.student_id, S.student_name, Sub.subject_name
+    from Students S
+    CROSS join Subjects Sub
+)
+select CTE_A.student_id, CTE_A.student_name, CTE_A.subject_name, COUNT(CASE WHEN E.subject_name IS NOT NULL THEN 1 END) as attended_exams
+from CTE_A
+left join Examinations E on E.student_id = CTE_A.student_id and E.subject_name = CTE_A.subject_name
+group by CTE_A.student_id, CTE_A.student_name, CTE_A.subject_name
+order by CTE_A.student_id, CTE_A.subject_name
 
 
 
-------------------------------------------------------------------------------------------------------
 
+--------------------------------------------------------------------------------------------------------------------
